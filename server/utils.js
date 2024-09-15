@@ -8,15 +8,17 @@ export const getLocales = (acceptLanguage) =>
 export const translate = async ({ key, locales, DB }) => {
   const sql = `
     SELECT keys1.untranslated as untranslated, keys2.untranslated as translated, keys2.locale as locale
-    FROM translations, keys
+    FROM translations
     JOIN keys keys1 ON
-      translations.untranslated_key_id = keys1.id OR keys.id = keys1.id
+      translations.untranslated_key_id = keys1.id
     JOIN keys keys2 ON
       translations.translated_key_id = keys2.id
     WHERE keys1.untranslated = ? AND keys2.locale IN (${locales
       .map((l) => `'${l}'`)
       .join(",")})`;
   const { results } = await DB.prepare(sql).bind(key).all();
+
+  results.unshift({ locale: locales[0], untranslated: key, translated: key });
 
   for (let i = 0; i < locales.length; i++) {
     const result = results.find((result) => result.locale === locales[i]) ?? {};
@@ -29,5 +31,6 @@ export const translate = async ({ key, locales, DB }) => {
     }
   }
 
-  return { error: "Not Found" };
+  // fallback to current locale, current key
+  return { locale: locales[0], value: key };
 };

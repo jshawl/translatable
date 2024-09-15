@@ -31,9 +31,6 @@ app.get("/translatable/api/translate", async (c) => {
   const key = c.req.query("key");
   const { DB } = env(c);
   const result = await translate({ key, locales, DB });
-  if (result.error) {
-    c.status(404);
-  }
   return c.json(result);
 });
 
