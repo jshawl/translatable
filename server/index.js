@@ -16,6 +16,16 @@ app.get("/translatable/api/debug", (c) => {
   });
 });
 
+app.get("/translatable/api/untranslated", async (c) => {
+  const { DB } = env(c);
+  const { results } = await DB.prepare(
+    `SELECT id, untranslated, locale
+    FROM keys
+    WHERE NOT EXISTS (SELECT untranslated_key_id FROM translations WHERE translations.untranslated_key_id = keys.id)`
+  ).all();
+  return c.json(results);
+});
+
 app.get("/translatable/api/translate", async (c) => {
   const locales = getLocales(c.req.header("Accept-Language"));
   const key = c.req.query("key");

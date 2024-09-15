@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS keys
 INSERT INTO keys
     (id, locale, untranslated) VALUES
     (1, 'en', 'Hello'),
-    (2, 'fr', 'Bonjour');
+    (2, 'fr', 'Bonjour'),
+    (3, 'es', 'Hola');
 
 DROP TABLE IF EXISTS translations;
 CREATE TABLE IF NOT EXISTS translations
