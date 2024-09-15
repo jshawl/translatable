@@ -1,0 +1,4 @@
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "translatable-development"
+database_id = "d5de4220-fbe6-46b4-bcc0-5a0fe233308a"
