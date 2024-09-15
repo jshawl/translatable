@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "db:seed": "npx wrangler d1 execute translatable-development --local --file=./schema.sql",
-    "db:get": "npx wrangler d1 execute translatable-development --local --command=\"SELECT * FROM translations\"",
     "start": "npx wrangler dev ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

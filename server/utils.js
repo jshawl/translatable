@@ -6,7 +6,7 @@ export const getLocales = (acceptLanguage) =>
     .filter((locale) => ["en", "en-US", "fr"].includes(locale));
 
 export const translate = async ({ key, locales, DB }) => {
-  const sql = `SELECT * FROM translations WHERE untranslated = ? AND locale IN (${locales
+  const sql = `SELECT keys1.untranslated as untranslated, keys2.untranslated as translated, keys2.locale as locale FROM translations JOIN keys keys1 ON translations.untranslated_key_id = keys1.id JOIN keys keys2 ON translations.translated_key_id = keys2.id WHERE keys1.untranslated = ? AND keys2.locale IN (${locales
     .map((l) => `'${l}'`)
     .join(",")})`;
   const { results } = await DB.prepare(sql).bind(key).all();
