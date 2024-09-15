@@ -6,9 +6,9 @@ import { getLocales, translate } from "./utils";
 
 const app = new Hono();
 
-app.use("/api/*", cors());
+app.use("/translatable/api/*", cors());
 
-app.get("/api/debug", (c) => {
+app.get("/translatable/api/debug", (c) => {
   const acceptLanguage = c.req.header("Accept-Language");
   return c.json({
     "Accept-Language": acceptLanguage,
@@ -16,13 +16,7 @@ app.get("/api/debug", (c) => {
   });
 });
 
-app.get("/api/db", async (c) => {
-  const { DB } = env(c);
-  const { results } = await DB.prepare("SELECT * FROM translations").all();
-  return c.json({ results });
-});
-
-app.get("/api/translate", async (c) => {
+app.get("/translatable/api/translate", async (c) => {
   const locales = getLocales(c.req.header("Accept-Language"));
   const key = c.req.query("key");
   const { DB } = env(c);

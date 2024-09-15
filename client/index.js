@@ -1,8 +1,8 @@
-const apiUrl = "http://localhost:8787";
+const apiUrl = "http://localhost:8787/translatable/api";
 
 async function translate(key) {
   try {
-    const response = await fetch(`${apiUrl}/api/translate?key=${key}`);
+    const response = await fetch(`${apiUrl}/translate?key=${key}`);
     const data = await response.json();
     return data.value ?? key;
   } catch (error) {
@@ -11,7 +11,7 @@ async function translate(key) {
 }
 
 async function debug() {
-  const response = await fetch(`${apiUrl}/api/debug`);
+  const response = await fetch(`${apiUrl}/debug`);
   const data = await response.json();
   return data;
 }
