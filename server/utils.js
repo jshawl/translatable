@@ -18,10 +18,14 @@ export const translate = async ({ key, locales, DB }) => {
       .join(",")})`;
   const { results } = await DB.prepare(sql).bind(key).all();
 
-  results.unshift({ locale: locales[0], untranslated: key, translated: key });
+  const translations = [
+    ...results,
+    { locale: locales[0], untranslated: key, translated: key },
+  ];
 
   for (let i = 0; i < locales.length; i++) {
-    const result = results.find((result) => result.locale === locales[i]) ?? {};
+    const result =
+      translations.find((result) => result.locale === locales[i]) ?? {};
     const { locale, translated: value } = result;
     if (value) {
       return {
