@@ -15,8 +15,8 @@ INSERT INTO translations
     (2, 2, 1);
 
 SELECT keys1.untranslated AS untranslated, keys2.untranslated AS translated
-FROM translations
+FROM translations, keys
 JOIN keys keys1 ON
-    translations.untranslated_key_id = keys1.id
+    translations.untranslated_key_id = keys1.id OR keys.id = keys1.id
 JOIN keys keys2 ON
-    translations.translated_key_id = keys2.id;
+    translations.translated_key_id = keys2.id OR keys.id = keys2.id;
