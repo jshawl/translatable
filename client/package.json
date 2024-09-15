@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npx http-server .",
     "test": "vitest run",
     "test:watch": "vitest"
   },

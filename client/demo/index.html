@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translatable Demo</title>
+  </head>
+  <body>
+    <h1>Translatable Demo</h1>
+
+    <pre>t("Hello") // "<span class="t-value"></span>"
+
+// Debug:
+<div class="t-debug"></div>
+    </pre>
+
+    <script type="module">
+      import { translatable } from "../index.js";
+      const t = translatable();
+      const translated = await t("Hello");
+      document.querySelector(".t-value").innerHTML = translated;
+
+      const debug = await t.debug();
+      document.querySelector(".t-debug").innerHTML = JSON.stringify(
+        debug,
+        null,
+        2
+      );
+    </script>
+  </body>
+</html>
